@@ -281,13 +281,13 @@ var render = function() {
         1
       ),
       _c("v-uni-view", { staticClass: _vm._$g(8, "sc"), attrs: { _i: 8 } }, [
-        _vm._v("仓库智慧平板拣选系统 V 1.0")
+        _vm._v("仓库智慧平板拣选系统")
       ]),
       _c("v-uni-view", { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } }, [
         _vm._v("广州时空智友信息科技有限公司")
       ]),
       _c("v-uni-view", { staticClass: _vm._$g(10, "sc"), attrs: { _i: 10 } }, [
-        _vm._v("@copyright 2020")
+        _vm._v("@copyright 2020    V " + _vm._$g(10, "t0-0"))
       ])
     ],
     1
@@ -1158,7 +1158,7 @@ var render = function() {
           _c(
             "v-uni-view",
             { staticClass: _vm._$g(13, "sc"), attrs: { _i: 13 } },
-            [_vm._v("@copyright 2020")]
+            [_vm._v("@copyright 2020    V " + _vm._$g(13, "t0-0"))]
           )
         ],
         1
@@ -2511,7 +2511,7 @@ var render = function() {
           _c(
             "v-uni-view",
             { staticClass: _vm._$g(27, "sc"), attrs: { _i: 27 } },
-            [_vm._v("@copyright 2020")]
+            [_vm._v("@copyright 2020    V " + _vm._$g(27, "t0-0"))]
           )
         ],
         1

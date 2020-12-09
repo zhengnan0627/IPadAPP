@@ -13,7 +13,7 @@
 					<view class="peizhi-img">
 						<image class="peizhi-image" src="../../../static/bianhao.png" mode=""></image>
 					</view>
-					<input class="input" type="text" v-model="bianhao"  placeholder="" placeholder-class="input"/>
+					<input class="input" type="number" v-model="bianhao"  placeholder="" placeholder-class="input"/>
 				</view>
 				<view class="confirm3" :class="{'confirm4':bianhao!=''}" @click="bianhao!=''?confirm():''">
 					确认
@@ -50,10 +50,10 @@
 		</view>
 		<view class="footer">
 			<view class="gongsi">
-				广州时空智友信息科技有限公司
+				{{gongsi}}
 			</view>
-			<view class="banben">
-				@copyright&nbsp2020
+			<view class="banben" v-if="banben">
+				{{banben}}&nbsp&nbsp&nbsp&nbspV&nbsp{{version}}
 			</view>
 		</view>
 	</view>
@@ -63,14 +63,30 @@
 	export default {
 		data() {
 			return {
+				gongsi:'',//公司名，默认为空
+				banben:'',//版本发布时间，默认为空
 				bianhao:'',//工号
 				name:'',//姓名
 				mima:'',//密码
 				baseUrl:'',//配置url 
 				jiaoyanmima:'',//服务器返回密码用于校验
-				jiaobianhao:'',//服务器返回密码用于校验
 				ygid:'',//服务器返回员工主键id
+				version:'1.0.1'//版本号
 			};
+		},
+		onLoad() {
+			this.gongsi = uni.getStorageSync('gongsi') ? uni.getStorageSync('gongsi') : '';
+			this.banben = uni.getStorageSync('banben') ? uni.getStorageSync('banben') : '';
+			//#ifdef APP-PLUS
+			this.version = plus.runtime.version  ? plus.runtime.version  : '1.0.1'
+			//#endif
+		},
+		watch:{
+			bianhao(newVal,oldVal){
+				this.name = ''
+				this.mima = ''
+				this.jiaoyanmima = ''
+			}
 		},
 		methods:{
 			//返回方法
@@ -96,20 +112,20 @@
 						this.name = ''
 						this.mima = ''
 						this.jiaoyanmima = ''
-						this.jiaoyanbianhao = ''
 					}
 					else{
 						this.name = resdata.yg_name
 						this.jiaoyanmima = resdata.password
-						this.jiaoyanbianhao = resdata.gh
 						uni.setStorageSync('ygId', resdata.yg_id);//缓存员工主键id
+						uni.setStorageSync('jhType', resdata.jh_type);//缓存拣选种类jh_type
+						uni.setStorageSync('needBasketNum', resdata.need_basketNum);//缓存拣选编辑状态need_basketNum
 						uni.setStorageSync('ygName', resdata.yg_name);//缓存员工姓名
 					}
 				})
 			},
 			denglu(){
 				
-				if(this.jiaoyanmima == this.mima&&this.name&&this.jiaoyanbianhao == this.bianhao){
+				if(this.jiaoyanmima == this.mima&&this.name){
 					uni.reLaunch({
 						url:'../../home/home'
 					})

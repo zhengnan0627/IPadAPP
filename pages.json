@@ -26,6 +26,19 @@
             "path" : "pages/renwu/renwu",
             "style" : {}
         }
+        ,{
+            "path" : "pages/index/login/versionlog",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/renwu/duodanrenwu",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationStyle":"custom",

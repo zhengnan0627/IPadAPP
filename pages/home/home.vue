@@ -15,6 +15,7 @@
 		</view>
 		<home v-if="pagesindex =='/pages/home/home'"/>
 		<renwu v-if="pagesindex =='/pages/renwu/renwu'"/>
+		<!-- <danduorenwu v-if="pagesindex =='/pages/renwu/duodanrenwu'"/> -->
 		<lishi v-if="pagesindex =='/pages/lishi/lishi'"/>
 		<yeji v-if="pagesindex =='/pages/yeji/yeji'"/>
 		<shezhi v-if="pagesindex =='/pages/shezhi/shezhi'"/>
@@ -55,7 +56,7 @@
 						pagePath: '/pages/renwu/renwu',
 						iconPath: "/static/renwu-gray.png",
 						selectedIconPath: "/static/renwu-highlight.png",
-						text: '任务领取',
+						text: '合单领取',
 						count: 1,
 						badge: 17,
 					},
@@ -92,7 +93,13 @@
 		},
 		onLoad() {
 			const ygName = uni.getStorageSync('ygName')
+			const jhType = uni.getStorageSync('jhType')
 			this.list[4].text = ygName
+			if(jhType == '多单拣货'){
+				this.list[1].pagePath = '/pages/renwu/duodanrenwu'
+				this.list[1].text = '多单领取'
+			}
+			console.log(jhType);
 		},
 		methods: {
 			click(e){
@@ -101,8 +108,11 @@
 				if(e.count ==1 && e.pagePath == '/pages/renwu/renwu'){
 					return uni.navigateTo({
 						url:'../renwu/renwu'
-					})
-					
+					})		
+				}else if(e.count == 1 && e.pagePath == '/pages/renwu/duodanrenwu'){
+					return uni.navigateTo({
+						url:'../renwu/duodanrenwu'
+					})	
 				}else if(e.count == 4 && e.pagePath == '/pages/shezhi/shezhi'){
 					this.show = true
 				}else{

@@ -5,7 +5,7 @@
 
 //请求分装
  function Request(options){
-	const baseUrl = uni.getStorageSync('baseUrl') ? uni.getStorageSync('baseUrl') : '192.168.3.7:8019';
+	const baseUrl = uni.getStorageSync('baseUrl') ? uni.getStorageSync('baseUrl') : '';
 	const api = `http://${baseUrl}/VXMail/PublicUrl.ashx`
 	const promise = new Promise(function(resolve,reject){
 		uni.showLoading({

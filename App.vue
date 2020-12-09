@@ -8,32 +8,60 @@ export default {
 	
 	/** 检测升级 */
 		//整包更新前端代码
-		    var server = "http://152.136.28.147:9009/VXMail/PublicUrl.ashx"; //检查更新地址  
-		    var req = { //升级检测数据
-				"proc":"MYC_APP_hdjh",
-				"type":"获取版本更新",
-		        "appid": plus.runtime.appid,  
-		        "version": plus.runtime.version  
-		    };  
-		    uni.request({  
-		        url: server,  
-		        data: req,  
-		        success: (res) => {  
-					// console.log(res.data);
-		            if (res.statusCode == 200 && res.data.Msg_info[0].status == 1) {  
-		                uni.showModal({ //提醒用户更新  
-		                    title: "更新提示",  
-		                    content: res.data.Msg_info[0].note,  
-		                    success: (ress) => {  
-		                        if (ress.confirm) {  
-									// console.log(ress);
-		                            plus.runtime.openURL(res.data.Msg_info[0].url);  
-		                        }  
-		                    }  
-		                })  
-		            }  
-		        }  
-		    })  
+		  //   var server = "http://152.136.28.147:9009/VXMail/PublicUrl.ashx"; //检查更新地址  
+		  //   var req = { //升级检测数据
+				// "proc":"MYC_APP_hdjh",
+				// "type":"获取版本更新",
+		  //       "appid": plus.runtime.appid,  
+		  //       "version": plus.runtime.version  
+		  //   };  
+		  //   uni.request({  
+		  //       url: server,  
+		  //       data: req,  
+		  //       success: (res) => {  
+				// 	// console.log(res.data);
+		  //           if (res.statusCode == 200 && res.data.Msg_info[0].status == 1) {  
+		  //               uni.showModal({ //提醒用户更新  
+		  //                   title: "更新提示",  
+		  //                   content: res.data.Msg_info[0].note,  
+		  //                   success: (ress) => {  
+		  //                       if (ress.confirm) {  
+				// 					// console.log(ress);
+		  //                           plus.runtime.openURL(res.data.Msg_info[0].url);  
+		  //                       }  
+		  //                   }  
+		  //               })  
+		  //           }  
+		  //       }  
+		  //   })  
+			/** 检测升级 */
+				//整包更新前端代码
+				    // var server = "http://152.136.28.147:9009/VXMail/PublicUrl.ashx"; //检查更新地址  
+				 //    var req = { //升级检测数据
+					// 	"proc":"APP_YWY_PORT",
+					// 	"type":"获取版本更新",
+				 //        "appid": plus.runtime.appid,  
+				 //        "version": plus.runtime.version  
+				 //    }; 
+					// if(uni.getStorageSync('baseUrl')){
+					// 	this.$request({
+					// 		data:req
+					// 	}).then(res => {
+					// 		if (res.Msg_info[0].status == 1) {
+					// 		    uni.showModal({ //提醒用户更新  
+					// 		        title: "更新提示",  
+					// 		        content: res.Msg_info[0].note,  
+					// 		        success: (ress) => {  
+					// 		            if (ress.confirm) {  		
+					// 		                plus.runtime.openURL(res.Msg_info[0].url);  
+					// 		            }  
+					// 		        }  
+					// 		    })  
+					// 		} 
+					// 	}) 
+					// }
+					
+					
 			// plus.io.requestFileSystem( plus.io.PUBLIC_DOWNLOAD, function(fs){
 			// 		// fs.root是根目录操作对象DirectoryEntry
 			// 		// 创建读取目录信息对象 
@@ -178,7 +206,7 @@ export default {
 			//         }  
 			//     });  
 			// });  
-			// // #endif
+			// #endif
 		// console.log('App Launch');
 	},
 	onShow: function() {

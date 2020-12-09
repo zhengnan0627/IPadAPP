@@ -14,14 +14,19 @@
 				服务器配置
 			</view>
 		</view>
+		<view class="logo-box">
+			<view class="logo">
+				<image :src="imgurl" mode="aspectFit"></image>
+			</view>
+		</view>
 		<view class="title">
-			仓库智慧平板拣选系统
+			{{appname}}
 		</view>
 		<view class="gongsi">
-			广州时空智友信息科技有限公司
+			{{gongsi}}
 		</view>
-		<view class="banben">
-			@copyright&nbsp2020&nbspV&nbsp{{version}}
+		<view class="banben" v-if="banben" @click="banbenLog">
+			{{banben}}&nbsp&nbsp&nbsp&nbspV&nbsp{{version}}
 		</view>
 	</view>
 </template>
@@ -30,13 +35,47 @@
 	export default {
 		data() {
 			return {
-				version:'1.0.1'
+				imgurl:'',//公司logo，默认为空
+				appname:'',//APP名称,默认为空
+				gongsi:'',//公司名，默认为空
+				banben:'',//版本发布时间，默认为空
+				version:'1.0.1',//版本号
 			}
 		},
-		onLoad() {
-				//#ifdef APP-PLUS
-				this.version = plus.runtime.version  ? plus.runtime.version  : '1.0.1'
-				//#endif
+		onShow() {
+			this.appname = uni.getStorageSync('appname') ? uni.getStorageSync('appname') : '智慧仓库平板拣选系统';
+			this.imgurl = uni.getStorageSync('imgurl') ? uni.getStorageSync('imgurl') : '';
+			this.gongsi = uni.getStorageSync('gongsi') ? uni.getStorageSync('gongsi') : '';
+			this.banben = uni.getStorageSync('banben') ? uni.getStorageSync('banben') : '';
+			//#ifdef APP-PLUS
+			this.version = plus.runtime.version  ? plus.runtime.version  : '1.0.1'
+			/** 检测升级 */
+			//整包更新前端代码
+			// var server = "http://152.136.28.147:9009/VXMail/PublicUrl.ashx"; //检查更新地址
+			var req = { //升级检测数据
+				"proc":"MYC_APP_hdjh",
+				"type":"获取版本更新",
+				"appid": plus.runtime.appid, 
+				"version": plus.runtime.version  
+			}; 
+			if(uni.getStorageSync('baseUrl')){
+				this.$request({
+					data:req
+				}).then(res => {
+					if (res.Msg_info[0].status == 1) {
+					    uni.showModal({ //提醒用户更新  
+					        title: "更新提示",  
+					        content: res.Msg_info[0].note,  
+					        success: (ress) => {  
+					            if (ress.confirm) {  									
+					                plus.runtime.openURL(res.Msg_info[0].url);  
+					            }  
+					        }  
+					    })  
+					} 
+				}) 
+			}    
+			//#endif	
 		},
 		methods: {
 			denglu(){
@@ -47,6 +86,11 @@
 			peizhi(){
 				uni.navigateTo({
 					url:'login/peizhi'
+				})
+			},
+			banbenLog(){
+				uni.navigateTo({
+					url:'login/versionlog'
 				})
 			}
 		}
@@ -98,8 +142,23 @@
 		width: 60px;
 		height: 60px;
 	}
+	.logo-box{
+		width: 100vw;
+		height: 146px;
+		line-height: 146px;
+	}
+	.logo{
+		margin: auto;
+		width: 300px;
+		height: 140px;
+		// background-color: #FFFFFF;
+	}
+	.logo image{
+		width: 300px;
+		height: 140px;
+	}
 	.title{
-		margin-top: 146px;
+		// margin-top: 146px;
 		width: 100vw;
 		height: 91px;
 		line-height: 91px;

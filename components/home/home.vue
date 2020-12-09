@@ -80,40 +80,44 @@
 				cHeightPie:'257',//饼图高度数据
 				pixelRatio:1,
 				chartData: {
-				  "categories": ['罗的霄','王的杰','张的磊','房的时','章的磊','李的刚','刘的红','张乐乐'],
+				  "categories": [
+					  // '罗的霄','王的杰','张的磊','房的时','章的磊','李的刚','刘的红','张乐乐',
+					  ],
 				  "series": [
 					  {
 					// "color":"#0081d4",
 					// "textColor":"#ffffff",
 					// "name": "拣货排行榜",
-						"data": [355,344,300,270,250,240,210,190],
+						// "data": [355,344,300,270,250,240,210,190],
 					// "color": "red"
 					},
 				  ]
 				},
 				//饼图数据
 				"PiechartData": {
-				  "series": [{
-					"name": "未完成",
-					"data": 102,
+				  "series": [
+					//   {
+					// "name": "未完成",
+					// "data": 102,
 					//下列数据项已通过修改源码实现
 					// "color":"#fdbb40", 
 					// "legendShape":"rect",
 					// "textColor":"#ffffff",
 					// "format":()=> this.chartData2.series[0].data
-				  }, {
-					"name": "已完成",
-					"data": 98,
+				 //  }, {
+					// "name": "已完成",
+					// "data": 98,
 					//下列数据项已通过修改源码实现
 					// "color":"#0186ff",
 					// "legendShape":"rect",
 					// "textColor":"#ffffff",
 					// "format":()=> this.chartData2.series[1].data
-				 },]
+				 // },
+				 ]
 				},
 				//区域任务数据
 				areaData:[
-					{'rw_num':12,'rw_title':'区域101',rw_color:"#87baac"},
+					// {'rw_num':12,'rw_title':'区域101',rw_color:"#87baac"},
 				],
 			};
 		},
@@ -152,8 +156,13 @@
 				data:{'proc':'MYC_APP_hdjh','type':'区域任务','yg_id':_self.ygId}
 			}).then(res => {
 				const resdata = res.Msg_info
+				if(resdata[0].error){
+					_self.areaData = []
+				}else{
+					_self.areaData = resdata
+				}
 				// console.log(resdata);
-				_self.areaData = resdata
+				
 			})
 		},
 		mounted() {

@@ -22,10 +22,10 @@
 		</view>
 		<view class="footer">
 			<view class="gongsi">
-				广州时空智友信息科技有限公司
+				{{gongsi}}
 			</view>
-			<view class="banben">
-				@copyright&nbsp2020
+			<view class="banben" v-if="banben">
+				{{banben}}&nbsp&nbsp&nbsp&nbspV&nbsp{{version}}
 			</view>
 		</view>
 		<u-popup v-model="show" mode="center" width="300" height="130" border-radius="8" :mask-close-able="false">
@@ -46,13 +46,21 @@
 	export default {
 		data() {
 			return {
+				gongsi:'',//公司名，默认为空
+				banben:'',//版本发布时间，默认为空
 				baseUrl:'',//配置url
 				show:false,//弹出层
 				placeholder:'',//输入框提示值
+				version:'1.0.1'//版本号
 			};
 		},
 		onLoad() {
 			this.placeholder = uni.getStorageSync('baseUrl') ? uni.getStorageSync('baseUrl') : '请输入配置地址';
+			this.gongsi = uni.getStorageSync('gongsi') ? uni.getStorageSync('gongsi') : '';
+			this.banben = uni.getStorageSync('banben') ? uni.getStorageSync('banben') : '';
+			//#ifdef APP-PLUS
+			this.version = plus.runtime.version  ? plus.runtime.version  : '1.0.1'
+			//#endif
 		},
 		methods:{
 			//返回方法
@@ -74,7 +82,14 @@
 					this.$request({
 						data:{'proc':'MYC_APP_hdjh','type':'链接测试',}
 					}).then(res => {		
-						console.log(res);
+						const resdata = res.Msg_info[0]
+						// console.log(resdata);
+						uni.setStorageSync('imgurl', resdata.logo);
+						uni.setStorageSync('appname', resdata.product);
+						uni.setStorageSync('gongsi', resdata.company);
+						uni.setStorageSync('banben', resdata.bbqz);
+						this.gongsi = resdata.company
+						this.banben = resdata.bbqz
 						this.show = true
 					});
 				}else {
